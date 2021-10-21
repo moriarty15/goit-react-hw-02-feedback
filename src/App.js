@@ -33,31 +33,39 @@ class App extends React.Component {
     const { good, neutral, bad } = this.state;
     if (good > 0 || neutral > 0 || bad > 0) {
       return (
-        <Section title="Please leave feedback">
-          <FeedbackOptions
-            incGood={this.incrementGoodFeedback}
-            incNeutral={this.incrementNeutralFeedback}
-            incBad={this.incrementBadFeedback}
-          />
-          <Statistic
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={this.countTotalFeedback()}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-          />
-        </Section>
+        <>
+          <Section title="Please leave feedback">
+            <FeedbackOptions
+              incGood={this.incrementGoodFeedback}
+              incNeutral={this.incrementNeutralFeedback}
+              incBad={this.incrementBadFeedback}
+            />
+          </Section>
+          <Section title="Statictic">
+            <Statistic
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          </Section>
+        </>
       );
     } else {
       return (
-        <Section title="Please leave feedback">
-          <FeedbackOptions
-            incGood={this.incrementGoodFeedback}
-            incNeutral={this.incrementNeutralFeedback}
-            incBad={this.incrementBadFeedback}
-          />
-          <Notification message="No feedback given" />
-        </Section>
+        <>
+          <Section title="Please leave feedback">
+            <FeedbackOptions
+              incGood={this.incrementGoodFeedback}
+              incNeutral={this.incrementNeutralFeedback}
+              incBad={this.incrementBadFeedback}
+            />
+          </Section>
+          <Section title="Statictic">
+            <Notification message="No feedback given" />
+          </Section>
+        </>
       );
     }
   }
