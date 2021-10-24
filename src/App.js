@@ -12,19 +12,8 @@ class App extends React.Component {
   };
 
   increment = e => {
-    switch (e.target.textContent) {
-      case 'good':
-        this.setState(prevState => ({ good: prevState.good + 1 }));
-        break;
-      case 'neutral':
-        this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
-        break;
-      case 'bad':
-        this.setState(prevState => ({ bad: prevState.bad + 1 }));
-        break;
-      default:
-        return;
-    }
+    const options = e.target.name;
+    this.setState(prevState => ({ [options]: prevState[options] + 1 }));
   };
 
   countTotalFeedback = () => {
@@ -41,7 +30,10 @@ class App extends React.Component {
     return (
       <>
         <Section title="Please leave feedback">
-          <FeedbackOptions onLeaveFeedback={this.increment} />
+          <FeedbackOptions
+            options={['good', 'neutral', 'bad']}
+            onLeaveFeedback={this.increment}
+          />
         </Section>
         {good + neutral + bad > 0 ? (
           <Section title="Statictic">
