@@ -11,15 +11,22 @@ class App extends React.Component {
     bad: 0,
   };
 
-  incrementGoodFeedback = () => {
-    this.setState(prevState => ({ good: prevState.good + 1 }));
+  increment = e => {
+    switch (e.target.textContent) {
+      case 'good':
+        this.setState(prevState => ({ good: prevState.good + 1 }));
+        break;
+      case 'neutral':
+        this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
+        break;
+      case 'bad':
+        this.setState(prevState => ({ bad: prevState.bad + 1 }));
+        break;
+      default:
+        return;
+    }
   };
-  incrementNeutralFeedback = () => {
-    this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
-  };
-  incrementBadFeedback = () => {
-    this.setState(prevState => ({ bad: prevState.bad + 1 }));
-  };
+
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
     return good + neutral + bad;
@@ -31,16 +38,12 @@ class App extends React.Component {
 
   render() {
     const { good, neutral, bad } = this.state;
-    if (good > 0 || neutral > 0 || bad > 0) {
-      return (
-        <>
-          <Section title="Please leave feedback">
-            <FeedbackOptions
-              incGood={this.incrementGoodFeedback}
-              incNeutral={this.incrementNeutralFeedback}
-              incBad={this.incrementBadFeedback}
-            />
-          </Section>
+    return (
+      <>
+        <Section title="Please leave feedback">
+          <FeedbackOptions onLeaveFeedback={this.increment} />
+        </Section>
+        {good + neutral + bad > 0 ? (
           <Section title="Statictic">
             <Statistic
               good={good}
@@ -50,24 +53,13 @@ class App extends React.Component {
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           </Section>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <Section title="Please leave feedback">
-            <FeedbackOptions
-              incGood={this.incrementGoodFeedback}
-              incNeutral={this.incrementNeutralFeedback}
-              incBad={this.incrementBadFeedback}
-            />
-          </Section>
+        ) : (
           <Section title="Statictic">
             <Notification message="No feedback given" />
           </Section>
-        </>
-      );
-    }
+        )}
+      </>
+    );
   }
 }
 
