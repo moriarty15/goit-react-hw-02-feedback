@@ -24,5 +24,5 @@ export default function FeedbackOptions(props) {
 
 FeedbackOptions.propTypes = {
   onLeaveFeedback: PropTypes.func.isRequired,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string),
 };
